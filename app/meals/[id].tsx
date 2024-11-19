@@ -1,69 +1,35 @@
 
 import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 export default function cocktailDetailScreen() {
-  const meals = [
-    {
-      id: 1,
-      title: "Spaghetti bolognaise",
-      description: "Des pâtes avec de la sauce tomate et de la viande hachée",
-      image: "https://img.cuisineaz.com/660x660/2016/07/29/i84653-spaghettis-bolognaise-rapides.jpg",
-      
-      category: "pasta",
-    },
-    {
-      id: 2,
-      title: "Salade César",
-      description: "Une salade avec de la salade verte, du poulet, des croûtons et de la sauce César",
-      image: "https://rians.com/wp-content/uploads/2024/04/1000038128.jpg",
-      category: "salad",
-    },
-    {
-      id: 3,
-      title: "Tarte aux pommes",
-      description: "Une tarte sucrée avec des pommes",
-      image: "https://assets.afcdn.com/recipe/20220128/128250_w1024h1024c1cx1294cy688cxt0cyt0cxb2037cyb1472.webp",
-      category: "dessert",
-    },
-    {
-      id: 4,
-      title: "Risotto aux champignons",
-      description: "Un risotto crémeux avec des champignons",
-      image: "https://www.recettes.cuisinefestive.com/wp-content/uploads/2019/09/RISOTTO.jpg",
-      category: "pasta",
-    },
-    {
-      id: 5,
-      title: "Salade niçoise",
-      description: "Une salade avec des tomates, des oeufs, des olives, du thon et des haricots verts",
-      image: "https://img.cuisineaz.com/1024x768/2013/12/20/i34581-salade-nicoise-rapide.jpeg",
-      category: "salad",
-    },
-    {
-      id: 6,
-      title: "Tiramisu",
-      description: "Un dessert italien avec du café, des biscuits et du mascarpone",
-      image: "https://img.cuisineaz.com/1024x768/2023/11/20/i196570-tiramisu-simple.jpg",
-      category: "dessert",
-    },
-  ];        
-  
+  const [meal, setMeal] = useState(null);
+
   const { id } = useLocalSearchParams();
+       
+  useEffect(() => {
+    (async () => {
+      const mealsJson = await fetch("https://www.themealdb.com/api/json/v1/1/lookup.php?i="+id);
+      //changement de l'adresse pour récupérer une recette via son id
+      const meals = await mealsJson.json();
+      setMeal(meals.meals[0]);
+    })();
+  }, []);
+  
   // La page est nommé [id] afin de pouvoir récupérer celui-ci en paramètre pour transférer une information depuis
   // un autre screen
 
-  const meal = meals.find((item)=> item.id === Number(id))
 
-  if (!meals) {
+  if (!meal) {
       return <Text>Dommage no meals</Text>
   }
         
     return (
         <View style={styles.screen}>
-            <Image style={styles.image} source={{ uri: meal?.image }}/>
-            <Text style={styles.mealTitle}>{meal?.title}</Text>
-            <Text style={styles.description}>{meal?.description}</Text>
+            <Image style={styles.image} source={{ uri: meal?.strMealThumb }}/>
+            <Text style={styles.mealTitle}>{meal?.strMeal}</Text>
+            <Text style={styles.description}>{meal?.strInstructions}</Text>
         </View>
     )
 }
