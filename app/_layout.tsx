@@ -7,8 +7,8 @@ export default function TabLayout() {
 
     <Stack>
       <Stack.Screen name='index' options={{ title: 'Accueil', headerShown: false }} />
-      <Stack.Screen name='single/[id]' options={{ title: 'Meal', headerShown: false}}/>
-      <Stack.Screen name='all-meals/index' options={{ title: 'All meals', headerShown: false}}/>
+      <Stack.Screen name='meals/[id]' options={{ title: 'Meal', headerShown: false}}/>
+      <Stack.Screen name='meals/index' options={{ title: 'All meals', headerShown: false}}/>
     </Stack>
   );
 }

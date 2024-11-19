@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import React from "react";
-import { Text, View, Button, StyleSheet, Image, FlatList, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity } from "react-native";
 
 export default function HomeScreen() {
   const meals = [
@@ -49,18 +49,17 @@ export default function HomeScreen() {
   ];
 
   const NumberToShow = 3;
-  const newMeals = meals.reverse().slice(0,NumberToShow)
+  const newMeals = meals.reverse().slice(0, NumberToShow)
 
   const singleMeal = (id: number) => {
-    router.push(`single/${id}`)
+    router.push(`/meals[id]`)
   }
   const allMeals = () => {
-    router.push(`allMeals`)
+    router.push(`/mealsindex`)
   }
   
   return (
     <View style={styles.screen}>
-      
       <View style={styles.screen}>
         <Image 
           source={ require("../assets/images/logo.png") }
