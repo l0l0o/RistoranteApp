@@ -28,7 +28,7 @@ export default function cocktailDetailScreen() {
   // La page est nommé [id] afin de pouvoir récupérer celui-ci en paramètre pour transférer une information depuis
   // un autre screen
   const singleMeal = (id: number) => {
-    router.push(`/meals/${id}`);
+    router.push(`../details/${id}`);
   };
 
   return (

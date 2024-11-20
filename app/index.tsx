@@ -42,7 +42,7 @@ export default function HomeScreen() {
   };
 
   const randomMeal = () => {
-    router.push(`/meals/search/random`);
+    router.push(`/meals/random`);
   };
 
   return (

@@ -6,16 +6,12 @@ export default function MealsLayout() {
     // via l'utilisation du router
     <Stack>
       <Stack.Screen
-        name="details/[id]"
-        options={{ title: "Meal", headerShown: false }}
+        name="random"
+        options={{ title: "Random Meal", headerShown: false }}
       />
       <Stack.Screen
-        name="search/[query]"
-        options={{ title: "Query meals", headerShown: false }}
-      />
-      <Stack.Screen
-        name="(tabs)"
-        options={{ title: "Tabs", headerShown: false }}
+        name="index"
+        options={{ title: "All meals", headerShown: false }}
       />
     </Stack>
   );
