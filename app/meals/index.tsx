@@ -14,7 +14,7 @@ const allMeals = () => {
   const [meals, setMeals] = useState([]);
 
   const singleMeal = (id: number) => {
-    router.push(`/meals/${id}`);
+    router.push(`/meals/details/${id}`);
   };
 
   // Utilisation d'un useEffect lors du fetch pour éviter que l'appel soit fait en boucle

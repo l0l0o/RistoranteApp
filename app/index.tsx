@@ -30,7 +30,7 @@ export default function HomeScreen() {
   }, []);
 
   const singleMeal = (id: number) => {
-    router.push(`/meals/${id}`);
+    router.push(`/meals/details/${id}`);
   };
   const allMeals = () => {
     router.push(`/meals`);
@@ -61,16 +61,30 @@ export default function HomeScreen() {
         simple et intuitive. Une expérience italienne à portée de main.
       </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Entrez du texte ici"
-        onChangeText={setSearchText}
-        value={text}
-      />
+      <View style={{ width: "100%", display: "flex", flexDirection: "row" }}>
+        <TextInput
+          style={styles.input}
+          placeholder="Chercher une recette"
+          onChangeText={setSearchText}
+          value={text}
+        />
 
-      <Pressable onPress={search} style={styles.press}>
-        <Text>Rechercher</Text>
-      </Pressable>
+        <Pressable
+          onPress={search}
+          style={{
+            width: 40,
+            height: 40,
+            backgroundColor: "white",
+            borderRadius: 40,
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <Text>O</Text>
+        </Pressable>
+      </View>
 
       <TouchableOpacity style={{ marginTop: 16 }} onPress={allMeals}>
         <Text style={styles.mealTitle}>Voir tous nos plats</Text>
@@ -119,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 24,
     padding: 10,
-    width: "80%",
+    width: "70%",
     marginTop: 20,
   },
 
