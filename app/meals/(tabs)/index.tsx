@@ -1,3 +1,4 @@
+import useGetMeals from "@/hooks/useGetMeals";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -7,27 +8,25 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Button,
 } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 
 const allMeals = () => {
   // Utilisation du useState afin de stocker les valeurs depuis l'API
-  const [meals, setMeals] = useState([]);
+  const meals = useGetMeals();
 
   const singleMeal = (id: number) => {
     router.push(`/meals/details/${id}`);
   };
 
-  // Utilisation d'un useEffect lors du fetch pour éviter que l'appel soit fait en boucle
-  // et ainsi éviter un re-render infini
-  useEffect(() => {
-    (async () => {
-      const mealsJson = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/search.php?s=",
-      );
-      const meals = await mealsJson.json();
-      setMeals(meals.meals);
-    })();
-  }, []);
+  const MealActions = () => {
+    return (
+      <View>
+        <Button title="Supprimer" />
+      </View>
+    );
+  };
 
   return (
     <View>
@@ -37,13 +36,14 @@ const allMeals = () => {
         keyExtractor={(meal) => meal.idMeal.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <TouchableOpacity
+            <Swipeable
+              renderRightActions={MealActions}
               style={styles.button}
               onPress={() => singleMeal(item.idMeal)}
             >
               <Image source={{ uri: item.strMealThumb }} style={styles.image} />
               <Text style={styles.mealTitle}>{item.strMeal}</Text>
-            </TouchableOpacity>
+            </Swipeable>
           </View>
         )}
       />

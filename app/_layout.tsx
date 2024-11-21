@@ -1,31 +1,37 @@
-import { Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { Stack, Tabs } from "expo-router";
+import { Pressable, View, Text } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import ParametersScreen from "./user/ParametersScreen";
+import UserScreen from "./user/UserScreen";
 
 export default function TabLayout() {
+  const Drawer = createDrawerNavigator();
   return (
     // La stack référence toutes les pages (screens) créées pour pouvoir naviguer dessus
     // via l'utilisation du router
-    <Tabs>
-      <Tabs.Screen
+    <Stack>
+      <Stack.Screen
         name="index"
         options={{
           title: "Accueil",
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" size={24} color={color} />
-          ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="meals"
         options={{
-          title: "Accueil",
+          title: "Meals",
           headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="search" size={24} color={color} />
-          ),
         }}
       />
-    </Tabs>
+      <Stack.Screen
+        name="user"
+        options={{
+          title: "Utilisateur",
+          headerShown: true,
+        }}
+      />
+    </Stack>
   );
 }

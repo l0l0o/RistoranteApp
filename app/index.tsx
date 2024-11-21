@@ -1,3 +1,4 @@
+import useGetMeals from "@/hooks/useGetMeals";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
@@ -9,25 +10,17 @@ import {
   TouchableOpacity,
   TextInput,
   Pressable,
+  Button,
 } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
-  const [meals, setMeals] = useState([]);
   const [text, setSearchText] = useState("");
 
   const NumberToShow = 3;
-  const newMeals = [...meals].slice(0, NumberToShow);
 
-  useEffect(() => {
-    (async () => {
-      const mealsFromJson = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/search.php?s=",
-      );
-      const meals = await mealsFromJson.json();
-      setMeals(meals.meals);
-      newMeals.reverse();
-    })();
-  }, []);
+  const meals = useGetMeals();
+  const newMeals = [...meals].slice(0, NumberToShow);
 
   const singleMeal = (id: number) => {
     router.push(`/meals/details/${id}`);
@@ -43,6 +36,14 @@ export default function HomeScreen() {
 
   const randomMeal = () => {
     router.push(`/meals/random`);
+  };
+
+  const MealActions = () => {
+    return (
+      <View>
+        <Button title="Supprimer" />
+      </View>
+    );
   };
 
   return (
@@ -103,7 +104,8 @@ export default function HomeScreen() {
           keyExtractor={(meal) => meal.idMeal.toString()}
           renderItem={({ item }) => (
             <View style={styles.card}>
-              <TouchableOpacity
+              <Swipeable
+                renderRightActions={MealActions}
                 style={styles.button}
                 onPress={() => singleMeal(item.idMeal)}
               >
@@ -112,7 +114,7 @@ export default function HomeScreen() {
                   style={styles.image}
                 />
                 <Text style={styles.mealTitle}>{item.strMeal}</Text>
-              </TouchableOpacity>
+              </Swipeable>
             </View>
           )}
         />

@@ -34,12 +34,12 @@ export default function cocktailDetailScreen() {
   return (
     <View style={styles.screen}>
       {!meals ? (
-        <Text>Dommage no meals</Text>
+        <Text style={styles.title}>Aucun plat trouvé</Text>
       ) : (
         <View>
           <Text style={styles.title}>
             {meals.length}{" "}
-            {meals.length > 1 ? "plats trouvés" : "Aucun plat trouvé"}
+            {meals.length > 1 ? "plats trouvés :" : "plat trouvé :"}
           </Text>
           <FlatList
             scrollEnabled={true}

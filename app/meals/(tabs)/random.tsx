@@ -1,22 +1,23 @@
+import useGetRandom from "@/hooks/useGetRandom";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 export default function cocktailDetailScreen() {
-  const [meal, setMeal] = useState(null);
+  // const [meal, setMeal] = useState(null);
+  // useEffect(() => {
+  //   (async () => {
+  //     const mealsJson = await fetch(
+  //       "https://www.themealdb.com/api/json/v1/1/random.php",
+  //     );
+  //     //changement de l'adresse pour récupérer une recette via son id
+  //     const meals = await mealsJson.json();
+  //     setMeal(meals.meals[0]);
+  //   })();
+  // }, []);
+  const meal = useGetRandom();
 
   const { id } = useLocalSearchParams();
-
-  useEffect(() => {
-    (async () => {
-      const mealsJson = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/random.php",
-      );
-      //changement de l'adresse pour récupérer une recette via son id
-      const meals = await mealsJson.json();
-      setMeal(meals.meals[0]);
-    })();
-  }, []);
 
   // La page est nommé [id] afin de pouvoir récupérer celui-ci en paramètre pour transférer une information depuis
   // un autre screen
